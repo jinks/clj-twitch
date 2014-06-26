@@ -7,9 +7,12 @@
   "Fetch JSON from an API URL and return as clojure map."
   [url]
   (let [data (try (client/get url {:as :json
-                                :socket-timeout 400
-                                :conn-timeout 400
-                                :retry-handler (fn [ex try-count http-context]
-                                                 (if (> try-count 6) false true))})
+                                   ;setting a sensible timeout as Twitch is "twitchy"
+                                   :socket-timeout 800
+                                   :conn-timeout 800
+                                   ;v2 API only for now
+                                   :headers {"Accept" "application/vnd.twitchtv.v2+json"}
+                                   :retry-handler (fn [ex try-count http-context]
+                                               (if (> try-count 6) false true))})
                (catch Exception e nil))]
     (:body data)))
