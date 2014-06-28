@@ -9,7 +9,7 @@ pretty much in flux.
 
 ### Example
 ```Clojure
-(require '[clj-twitch.core :as twitch])
+(require '[clj-twitch.channel :as twitch])
 
 (twitch/game "ksptv")
 ;=> "Kerbal Space Program"

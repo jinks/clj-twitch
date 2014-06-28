@@ -11,6 +11,30 @@
   "Fetches the Followercount of a given channel."
   (:followers (core/fetch-twitch (str core/base-url "/channels/" channel))))
 
+(defn firstfollow
+  [channel]
+  "Returns a map of the first follow of a given channel."
+  (peek
+   (:follows
+    (core/fetch-twitch (str core/base-url "/channels/" channel "/follows?direction=ASC&limit=1&offset=0")))))
+
+(defn lastfollow
+  [channel]
+  "Returns a map of the last follow of a given channel."
+  (peek
+   (:follows
+    (core/fetch-twitch (str core/base-url "/channels/" channel "/follows?direction=DESC&limit=1&offset=0")))))
+
+(defn followpretty
+  [follow]
+  "Return the displayname from a user of a given follow map."
+  (:display_name (:user follow)))
+
+(defn followdate
+  [follow]
+  "Returns the date of a given follow map."
+  (:created_at follow))
+
 (defn pretty
   "Fetches the displayname of a given channel."
   [channel]
