@@ -9,4 +9,4 @@
 (defn follows
   "Fetches all the channels the user is following."
   [user]
-  (core/fetch-twitch (str core/base-url "/users/" user "/follows?limit=1000")))
+  (core/fetch-twitch (str core/base-url "/users/" user "/follows/channels?limit=100")))
